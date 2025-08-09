@@ -92,6 +92,68 @@ export default function AcedPortfolio() {
     }
   };
 
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      // Получаем текущую позицию и позицию цели
+      const startPosition = window.pageYOffset;
+      const targetPosition = contactSection.offsetTop - 100; // Отступ сверху
+      const distance = targetPosition - startPosition;
+      const duration = 1500; // 1.5 секунды для медленной прокрутки
+      let start = null;
+
+      // Функция анимации
+      function animation(currentTime) {
+        if (start === null) start = currentTime;
+        const timeElapsed = currentTime - start;
+        const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
+        window.scrollTo(0, run);
+        if (timeElapsed < duration) requestAnimationFrame(animation);
+      }
+
+      // Функция плавности (cubic-bezier)
+      function easeInOutCubic(t, b, c, d) {
+        t /= d / 2;
+        if (t < 1) return c / 2 * t * t * t + b;
+        t -= 2;
+        return c / 2 * (t * t * t + 2) + b;
+      }
+
+      requestAnimationFrame(animation);
+    }
+  };
+
+  const smoothScrollTo = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      // Получаем текущую позицию и позицию цели
+      const startPosition = window.pageYOffset;
+      const targetPosition = section.offsetTop - 100; // Отступ сверху
+      const distance = targetPosition - startPosition;
+      const duration = 1500; // 1.5 секунды для медленной прокрутки
+      let start = null;
+
+      // Функция анимации
+      function animation(currentTime) {
+        if (start === null) start = currentTime;
+        const timeElapsed = currentTime - start;
+        const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
+        window.scrollTo(0, run);
+        if (timeElapsed < duration) requestAnimationFrame(animation);
+      }
+
+      // Функция плавности (cubic-bezier)
+      function easeInOutCubic(t, b, c, d) {
+        t /= d / 2;
+        if (t < 1) return c / 2 * t * t * t + b;
+        t -= 2;
+        return c / 2 * (t * t * t + 2) + b;
+      }
+
+      requestAnimationFrame(animation);
+    }
+  };
+
   const services = [
     {
       title: "Телеграм-боты",
@@ -144,20 +206,34 @@ export default function AcedPortfolio() {
           </div>
 
           <nav className="hidden md:flex items-center gap-4">
-            <a href="#services" className="text-sm hover:underline">
+            <motion.button 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              onClick={() => smoothScrollTo('services')}
+              className="text-sm hover:underline bg-transparent border-none cursor-pointer text-white"
+            >
               Услуги
-            </a>
-            <a href="#work" className="text-sm hover:underline">
+            </motion.button>
+            <motion.button 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              onClick={() => smoothScrollTo('work')}
+              className="text-sm hover:underline bg-transparent border-none cursor-pointer text-white"
+            >
               Портфолио
-            </a>
-            <a href="#contact" className="text-sm hover:underline">
-              Контакты
-            </a>
-            <div className="flex items-center gap-3 ml-4">
+            </motion.button>
+            <motion.div 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex items-center gap-3 ml-4"
+            >
               <a aria-label="github" href="https://github.com/Marionet1clxn" target="_blank" className="p-2 rounded-md hover:bg-white/5">
                 <Github className="w-5 h-5" />
               </a>
-            </div>
+            </motion.div>
           </nav>
         </header>
 
@@ -175,21 +251,30 @@ export default function AcedPortfolio() {
               дизайне, простой код и автоматизацию рутины.
             </p>
 
-            <div className="mt-6 flex gap-3">
-              <a
-                href="mailto:levserduk76@gmail.com"
-                className="inline-flex items-center gap-2 rounded-2xl border border-white/10 px-4 py-2 text-sm hover:bg-white/5"
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="mt-6 flex gap-3"
+            >
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={scrollToContact}
+                className="inline-flex items-center gap-2 rounded-2xl border border-white/10 px-4 py-2 text-sm hover:bg-white/5 transition-colors"
               >
                 <Mail className="w-4 h-4" /> Связаться
-              </a>
+              </motion.button>
 
-              <a
-                href="#work"
-                className="inline-flex items-center gap-2 rounded-2xl bg-white/5 px-4 py-2 text-sm hover:bg-white/10"
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => smoothScrollTo('work')}
+                className="inline-flex items-center gap-2 rounded-2xl bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition-colors"
               >
                 Портфолио
-              </a>
-            </div>
+              </motion.button>
+            </motion.div>
 
             <div className="mt-6 text-xs text-gray-500">Доступен для удалённой работы.</div>
           </motion.div>
@@ -224,14 +309,22 @@ export default function AcedPortfolio() {
           <p className="text-gray-400 mt-2">Основные направления работы.</p>
 
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {services.map((s) => (
+            {services.map((s, index) => (
               <motion.div
                 key={s.title}
-                whileHover={{ y: -6 }}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
+                whileHover={{ y: -6, scale: 1.02 }}
                 className="bg-white/3 border border-white/6 rounded-2xl p-5"
               >
                 <div className="flex items-center gap-3">
-                  <div className="p-3 rounded-md bg-white/6">{s.icon}</div>
+                  <motion.div 
+                    whileHover={{ rotate: 5, scale: 1.1 }}
+                    className="p-3 rounded-md bg-white/6"
+                  >
+                    {s.icon}
+                  </motion.div>
                   <div>
                     <h4 className="font-semibold">{s.title}</h4>
                     <p className="text-sm text-gray-300 mt-1">{s.desc}</p>
@@ -246,27 +339,32 @@ export default function AcedPortfolio() {
         <section id="work" className="mt-14">
           <div className="flex items-center justify-between">
             <h3 className="text-2xl font-semibold">Портфолио</h3>
-            <a href="#contact" className="text-sm hover:underline">
-              Заказать похожее
-            </a>
           </div>
 
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {projects.map((p) => (
-              <motion.a
+            {projects.map((p, index) => (
+              <motion.div
                 key={p.name}
-                whileHover={{ scale: 1.01 }}
-                className="block bg-white/3 border border-white/6 rounded-2xl p-5"
-                href="#"
+                initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
+                whileHover={{ scale: 1.02, y: -5 }}
+                className="block bg-white/3 border border-white/6 rounded-2xl p-5 cursor-pointer"
               >
                 <h4 className="font-semibold">{p.name}</h4>
                 <p className="text-sm text-gray-300 mt-2">{p.desc}</p>
                 <div className="mt-3 text-xs text-gray-400 flex gap-2 flex-wrap">
                   {p.tags.map((t) => (
-                    <span key={t} className="px-2 py-1 rounded-md border border-white/6">{t}</span>
+                    <motion.span 
+                      key={t} 
+                      whileHover={{ scale: 1.1 }}
+                      className="px-2 py-1 rounded-md border border-white/6"
+                    >
+                      {t}
+                    </motion.span>
                   ))}
                 </div>
-              </motion.a>
+              </motion.div>
             ))}
           </div>
         </section>
@@ -283,7 +381,10 @@ export default function AcedPortfolio() {
             <p className="text-gray-300 mt-2">Напишите задачу или оставьте контакты — ответ поступит в ближайшее время.</p>
 
             <form className="mt-4 space-y-3" onSubmit={handleSubmit}>
-              <input
+              <motion.input
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
@@ -291,7 +392,10 @@ export default function AcedPortfolio() {
                 placeholder="Имя"
                 required
               />
-              <input
+              <motion.input
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
                 name="contact"
                 value={formData.contact}
                 onChange={handleInputChange}
@@ -299,7 +403,10 @@ export default function AcedPortfolio() {
                 placeholder="Email или Telegram"
                 required
               />
-              <textarea
+              <motion.textarea
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
                 name="message"
                 value={formData.message}
                 onChange={handleInputChange}
@@ -332,8 +439,15 @@ export default function AcedPortfolio() {
                 </motion.div>
               )}
 
-              <div className="flex items-center gap-3">
-                <button 
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="flex items-center gap-3"
+              >
+                <motion.button 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   type="submit"
                   disabled={isSubmitting}
                   className="inline-flex items-center gap-2 rounded-2xl bg-white/5 px-4 py-2 text-sm hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -349,36 +463,70 @@ export default function AcedPortfolio() {
                       Отправить
                     </>
                   )}
-                </button>
-                <a href="mailto:levserduk76@gmail.com" className="text-sm text-gray-300 hover:underline">Или напишите на почту</a>
-              </div>
+                </motion.button>
+                <motion.a 
+                  whileHover={{ scale: 1.05 }}
+                  href="mailto:levserduk76@gmail.com" 
+                  className="text-sm text-gray-300 hover:underline"
+                >
+                  Или напишите на почту
+                </motion.a>
+              </motion.div>
             </form>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
             className="space-y-4"
           >
-            <div className="bg-white/3 p-5 rounded-2xl border border-white/6">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              whileHover={{ scale: 1.02 }}
+              className="bg-white/3 p-5 rounded-2xl border border-white/6"
+            >
               <h4 className="font-semibold">Готов обсудить</h4>
               <p className="text-sm text-gray-300 mt-2">Удалённая работа, фриланс, долгосрочные проекты.</p>
-            </div>
+            </motion.div>
 
-            <div className="bg-white/3 p-5 rounded-2xl border border-white/6">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              whileHover={{ scale: 1.02 }}
+              className="bg-white/3 p-5 rounded-2xl border border-white/6"
+            >
               <h4 className="font-semibold">Коротко обо мне</h4>
               <p className="text-sm text-gray-300 mt-2">Опыт в Node.js, Telegram Bot API, React и Next.js. Пишу чистый код, создаю UX, который продаёт.</p>
-            </div>
+            </motion.div>
 
-            <div className="flex items-center gap-3">
-              <a href="https://github.com/Marionet1clxn" target="_blank" className="p-3 rounded-md hover:bg-white/5" aria-label="github">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="flex items-center gap-3"
+            >
+              <motion.a 
+                whileHover={{ scale: 1.2, rotate: 5 }}
+                href="https://github.com/Marionet1clxn" 
+                target="_blank" 
+                className="p-3 rounded-md hover:bg-white/5" 
+                aria-label="github"
+              >
                 <Github className="w-5 h-5" />
-              </a>
-              <a href="mailto:levserduk76@gmail.com" className="p-3 rounded-md hover:bg-white/5" aria-label="email">
+              </motion.a>
+              <motion.a 
+                whileHover={{ scale: 1.2, rotate: 5 }}
+                href="mailto:levserduk76@gmail.com" 
+                className="p-3 rounded-md hover:bg-white/5" 
+                aria-label="email"
+              >
                 <Mail className="w-5 h-5" />
-              </a>
-            </div>
+              </motion.a>
+            </motion.div>
           </motion.div>
         </section>
 
