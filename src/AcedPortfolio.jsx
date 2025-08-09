@@ -9,6 +9,8 @@ import {
   Smartphone,
   CheckCircle,
   AlertCircle,
+  MessageCircle,
+  Bot,
 } from "lucide-react";
 
 export default function AcedPortfolio() {
@@ -157,17 +159,27 @@ export default function AcedPortfolio() {
   const services = [
     {
       title: "Телеграм-боты",
-      desc: "Создаю чат-ботов, админ-панели, интеграции с API и платежами.",
+      desc: "Создаю чат-ботов, сервисы, интеграции с API и платежами.",
       icon: <Smartphone className="w-6 h-6" />,
     },
     {
+      title: "Telegram Mini Apps",
+      desc: "Разрабатываю мини-приложения внутри Telegram с современным UI/UX.",
+      icon: <Code className="w-6 h-6" />,
+    },
+    {
+      title: "Discord боты",
+      desc: "Создаю ботов для Discord под ваши нужды.",
+      icon: <Bot className="w-6 h-6" />,
+    },
+    {
       title: "Веб-сайты",
-      desc: "Лендинги, бизнес-сайты и админки на React/Next.js.",
+      desc: "Лендинги, бизнес-сайты и визитки на React/Next.js.",
       icon: <Code className="w-6 h-6" />,
     },
     {
       title: "Интеграции и автоматизация",
-      desc: "Webhook'и, бэкенд на Node.js, базы данных и CI/CD.",
+      desc: "Webhook'и, backend на Node.js, базы данных и CI/CD.",
       icon: <Send className="w-6 h-6" />,
     },
   ];
@@ -201,7 +213,7 @@ export default function AcedPortfolio() {
             </div>
             <div>
               <h1 className="text-2xl font-semibold leading-tight">aced</h1>
-              <p className="text-sm text-gray-300">Разработка телеграм-ботов и сайтов</p>
+              <p className="text-sm text-gray-300">Разработка ботов, мини-приложений и сайтов</p>
             </div>
           </div>
 
@@ -247,8 +259,8 @@ export default function AcedPortfolio() {
             <p className="text-sm uppercase text-gray-400 tracking-wider">Привет, я</p>
             <h2 className="text-4xl md:text-5xl font-extrabold leading-tight mt-2">aced</h2>
             <p className="mt-4 text-gray-300 max-w-xl">
-              Я создаю надёжные и удобные телеграм-боты и современные сайты. Люблю минимализм в
-              дизайне, простой код и автоматизацию рутины.
+              Я создаю надёжные и удобные телеграм-боты, мини-приложения, Discord боты и современные сайты. 
+              Люблю минимализм в дизайне, простой код и автоматизацию рутины.
             </p>
 
             <motion.div 
@@ -257,23 +269,19 @@ export default function AcedPortfolio() {
               transition={{ duration: 0.6, delay: 0.8 }}
               className="mt-6 flex gap-3"
             >
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <button
                 onClick={scrollToContact}
                 className="inline-flex items-center gap-2 rounded-2xl border border-white/10 px-4 py-2 text-sm hover:bg-white/5 transition-colors"
               >
                 <Mail className="w-4 h-4" /> Связаться
-              </motion.button>
+              </button>
 
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <button
                 onClick={() => smoothScrollTo('work')}
                 className="inline-flex items-center gap-2 rounded-2xl bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition-colors"
               >
                 Портфолио
-              </motion.button>
+              </button>
             </motion.div>
 
             <div className="mt-6 text-xs text-gray-500">Доступен для удалённой работы.</div>
@@ -315,16 +323,12 @@ export default function AcedPortfolio() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-                whileHover={{ y: -6, scale: 1.02 }}
                 className="bg-white/3 border border-white/6 rounded-2xl p-5"
               >
                 <div className="flex items-center gap-3">
-                  <motion.div 
-                    whileHover={{ rotate: 5, scale: 1.1 }}
-                    className="p-3 rounded-md bg-white/6"
-                  >
+                  <div className="p-3 rounded-md bg-white/6">
                     {s.icon}
-                  </motion.div>
+                  </div>
                   <div>
                     <h4 className="font-semibold">{s.title}</h4>
                     <p className="text-sm text-gray-300 mt-1">{s.desc}</p>
@@ -348,20 +352,18 @@ export default function AcedPortfolio() {
                 initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-                whileHover={{ scale: 1.02, y: -5 }}
                 className="block bg-white/3 border border-white/6 rounded-2xl p-5 cursor-pointer"
               >
                 <h4 className="font-semibold">{p.name}</h4>
                 <p className="text-sm text-gray-300 mt-2">{p.desc}</p>
                 <div className="mt-3 text-xs text-gray-400 flex gap-2 flex-wrap">
                   {p.tags.map((t) => (
-                    <motion.span 
+                    <span 
                       key={t} 
-                      whileHover={{ scale: 1.1 }}
                       className="px-2 py-1 rounded-md border border-white/6"
                     >
                       {t}
-                    </motion.span>
+                    </span>
                   ))}
                 </div>
               </motion.div>
@@ -445,9 +447,7 @@ export default function AcedPortfolio() {
                 transition={{ duration: 0.5, delay: 0.4 }}
                 className="flex items-center gap-3"
               >
-                <motion.button 
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                <button 
                   type="submit"
                   disabled={isSubmitting}
                   className="inline-flex items-center gap-2 rounded-2xl bg-white/5 px-4 py-2 text-sm hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -463,14 +463,13 @@ export default function AcedPortfolio() {
                       Отправить
                     </>
                   )}
-                </motion.button>
-                <motion.a 
-                  whileHover={{ scale: 1.05 }}
+                </button>
+                <a 
                   href="mailto:levserduk76@gmail.com" 
                   className="text-sm text-gray-300 hover:underline"
                 >
                   Или напишите на почту
-                </motion.a>
+                </a>
               </motion.div>
             </form>
           </motion.div>
@@ -485,7 +484,6 @@ export default function AcedPortfolio() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              whileHover={{ scale: 1.02 }}
               className="bg-white/3 p-5 rounded-2xl border border-white/6"
             >
               <h4 className="font-semibold">Готов обсудить</h4>
@@ -496,11 +494,10 @@ export default function AcedPortfolio() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              whileHover={{ scale: 1.02 }}
               className="bg-white/3 p-5 rounded-2xl border border-white/6"
             >
               <h4 className="font-semibold">Коротко обо мне</h4>
-              <p className="text-sm text-gray-300 mt-2">Опыт в Node.js, Telegram Bot API, React и Next.js. Пишу чистый код, создаю UX, который продаёт.</p>
+              <p className="text-sm text-gray-300 mt-2">Опыт в Node.js, Telegram Bot API, Telegram Mini Apps, Discord.js, React и Next.js. Пишу чистый код, создаю UX, который продаёт.</p>
             </motion.div>
 
             <motion.div 
@@ -509,23 +506,21 @@ export default function AcedPortfolio() {
               transition={{ duration: 0.5, delay: 0.5 }}
               className="flex items-center gap-3"
             >
-              <motion.a 
-                whileHover={{ scale: 1.2, rotate: 5 }}
+              <a 
                 href="https://github.com/Marionet1clxn" 
                 target="_blank" 
                 className="p-3 rounded-md hover:bg-white/5" 
                 aria-label="github"
               >
                 <Github className="w-5 h-5" />
-              </motion.a>
-              <motion.a 
-                whileHover={{ scale: 1.2, rotate: 5 }}
+              </a>
+              <a 
                 href="mailto:levserduk76@gmail.com" 
                 className="p-3 rounded-md hover:bg-white/5" 
                 aria-label="email"
               >
                 <Mail className="w-5 h-5" />
-              </motion.a>
+              </a>
             </motion.div>
           </motion.div>
         </section>
