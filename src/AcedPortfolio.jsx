@@ -200,7 +200,7 @@ export default function AcedPortfolio() {
             transition={{ duration: 0.6 }}
             className="bg-white/3 rounded-2xl p-6 border border-white/6"
           >
-            <h3 className="text-lg font-semibold">Быстрая шапка — контакты</h3>
+            <h3 className="text-lg font-semibold">Контакты</h3>
             <ul className="mt-4 text-sm text-gray-200 space-y-3">
               <li>
                 <strong>Телеграм:</strong> <a href="https://t.me/zxaced" className="text-gray-100 hover:underline">@zxaced</a>
@@ -279,8 +279,8 @@ export default function AcedPortfolio() {
             transition={{ duration: 0.5 }}
             className="bg-white/3 rounded-2xl p-6 border border-white/6"
           >
-            <h3 className="text-xl font-semibold">Свяжитесь со мной</h3>
-            <p className="text-gray-300 mt-2">Напишите задачу или оставьте контакты — ответ поступит в Telegram.</p>
+            <h3 className="text-xl font-semibold">Обратная связь</h3>
+            <p className="text-gray-300 mt-2">Напишите задачу или оставьте контакты — ответ поступит в ближайшее время.</p>
 
             <form className="mt-4 space-y-3" onSubmit={handleSubmit}>
               <input
